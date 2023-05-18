@@ -1,0 +1,11 @@
+{
+  "slug": "synthetic-pii-redaction",
+  "title": "Synthetic PII redaction evaluator",
+  "description": "Evaluate a limited email/phone regex redactor against annotated character spans, reporting exact-span precision, recall, F1 and missed detections.",
+  "category": "evaluation",
+  "demo_args": [
+    "--input",
+    "example.json"
+  ],
+  "expected_exit": 0
+}
