@@ -1,0 +1,23 @@
+{
+  "documents": [
+    {
+      "text": "Contact ava@example.test or +1-202-555-0134.",
+      "annotations": [
+        {
+          "start": 8,
+          "end": 24,
+          "kind": "EMAIL"
+        },
+        {
+          "start": 28,
+          "end": 43,
+          "kind": "PHONE"
+        }
+      ]
+    },
+    {
+      "text": "Order 1234567890 is a synthetic non-phone identifier.",
+      "annotations": []
+    }
+  ]
+}
