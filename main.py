@@ -21,3 +21,11 @@ def detect(text):
             spans.append((start, end, kind))
     return spans
 
+
+def redact(text, spans):
+    result, position = [], 0
+    for start, end, kind in spans:
+        result.extend((text[position:start], f"[{kind}]"))
+        position = end
+    return "".join(result) + text[position:]
+
