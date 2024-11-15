@@ -29,3 +29,39 @@ def redact(text, spans):
         position = end
     return "".join(result) + text[position:]
 
+
+def evaluate(documents):
+    if not isinstance(documents, list) or not documents:
+        raise ValueError("documents must be a nonempty list")
+    true_positive, false_positive, false_negative, results = 0, 0, 0, []
+    for document in documents:
+        text, annotations = document["text"], document["annotations"]
+        if not isinstance(text, str) or not isinstance(annotations, list):
+            raise ValueError("text must be a string and annotations a list")
+        expected = []
+        for annotation in annotations:
+            start, end, kind = annotation["start"], annotation["end"], annotation["kind"]
+            if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(text):
+                raise ValueError("annotation offsets must select a nonempty text span")
+            if kind not in PATTERNS:
+                raise ValueError("annotation kind must be EMAIL or PHONE")
+            expected.append((start, end, kind))
+        expected.sort()
+        if any(b[0] < a[1] for a, b in zip(expected, expected[1:])):
+            raise ValueError("annotations cannot overlap")
+        found = detect(text)
+        truth, predicted = set(expected), set(found)
+        tp, fp, fn = len(truth & predicted), len(predicted - truth), len(truth - predicted)
+        true_positive += tp
+        false_positive += fp
+        false_negative += fn
+        results.append({"redacted_text": redact(text, found), "detected_spans": found,
+                        "false_positive_spans": sorted(predicted - truth),
+                        "missed_spans": sorted(truth - predicted)})
+    precision = true_positive / (true_positive + false_positive) if true_positive + false_positive else 1.0
+    recall = true_positive / (true_positive + false_negative) if true_positive + false_negative else 1.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {"matching": "exact offsets and kind", "true_positives": true_positive,
+            "false_positives": false_positive, "false_negatives": false_negative,
+            "precision": precision, "recall": recall, "f1": f1, "documents": results}
+
