@@ -65,3 +65,23 @@ def evaluate(documents):
             "false_positives": false_positive, "false_negatives": false_negative,
             "precision": precision, "recall": recall, "f1": f1, "documents": results}
 
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input", required=True)
+    args = parser.parse_args()
+    try:
+        input_path = Path(args.input)
+        if not input_path.is_absolute():
+            input_path = Path(__file__).resolve().parent / input_path
+        with input_path.open(encoding="utf-8") as handle:
+            data = json.load(handle)
+        print(json.dumps(evaluate(data["documents"]), indent=2))
+        return 0
+    except (ValueError, KeyError, TypeError, OSError) as error:
+        print(f"Invalid redaction evaluation: {error}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())
