@@ -4,7 +4,7 @@ This reference implementation and all of the following milestone commits were pr
 
 **Every recorded author and committer date in this timeline is synthetic. These dates are not evidence that the code was written, tested, deployed, or used professionally in the past.**
 
-This snapshot is milestone 6 of 13. It is an incomplete tutorial stage; source, fixtures, tests, the CLI, and automation are introduced progressively.
+This snapshot is milestone 7 of 13. It is an incomplete tutorial stage; source, fixtures, tests, the CLI, and automation are introduced progressively.
 
 The progression decomposes already-completed October 2026 code into meaningful additions. It is not recovered original development history. Publication time is separate from the synthetic Git timestamps.
 
@@ -18,7 +18,7 @@ The progression decomposes already-completed October 2026 code into meaningful a
 | 4 | 2024-11-04T13:53:34+05:30 | Implement redact (present) |
 | 5 | 2024-11-15T13:47:55+05:30 | Implement evaluate (present) |
 | 6 | 2025-06-07T11:55:20+05:30 | Expose the command-line demonstration and input handling (present) |
-| 7 | 2025-06-08T10:10:13+05:30 | Test email and phone offsets (later stage) |
+| 7 | 2025-06-08T10:10:13+05:30 | Test email and phone offsets (present) |
 | 8 | 2025-11-23T17:37:14+05:30 | Test false positive and missed span (later stage) |
 | 9 | 2026-01-11T19:24:49+05:30 | Test empty clean text (later stage) |
 | 10 | 2026-01-23T12:12:54+05:30 | Test invalid annotation (later stage) |
