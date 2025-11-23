@@ -11,3 +11,10 @@ class RedactionTests(unittest.TestCase):
         annotations = [{"start": a, "end": b, "kind": kind} for a, b, kind in spans]
         self.assertEqual(evaluate([{"text": text, "annotations": annotations}])["f1"], 1)
 
+    def test_false_positive_and_missed_span(self):
+        result = evaluate([{"text": "ID 1234567890", "annotations": []},
+                           {"text": "ava at example dot test", "annotations": [{"start": 0, "end": 23, "kind": "EMAIL"}]}])
+        self.assertEqual(result["false_positives"], 1)
+        self.assertEqual(result["false_negatives"], 1)
+        self.assertEqual(result["f1"], 0)
+
