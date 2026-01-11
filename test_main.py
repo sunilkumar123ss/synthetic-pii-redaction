@@ -18,3 +18,7 @@ class RedactionTests(unittest.TestCase):
         self.assertEqual(result["false_negatives"], 1)
         self.assertEqual(result["f1"], 0)
 
+    def test_empty_clean_text(self):
+        result = evaluate([{"text": "", "annotations": []}])
+        self.assertEqual((result["precision"], result["recall"]), (1, 1))
+
