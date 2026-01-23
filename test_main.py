@@ -22,3 +22,12 @@ class RedactionTests(unittest.TestCase):
         result = evaluate([{"text": "", "annotations": []}])
         self.assertEqual((result["precision"], result["recall"]), (1, 1))
 
+    def test_invalid_annotation(self):
+        with self.assertRaises(ValueError):
+            evaluate([{"text": "x", "annotations": [{"start": 0, "end": 2, "kind": "EMAIL"}]}])
+        with self.assertRaises(ValueError):
+            evaluate([])
+
+
+if __name__ == "__main__":
+    unittest.main()
